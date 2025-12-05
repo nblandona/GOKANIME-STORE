@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOKANIME STORE - Coleccionismo Épico</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --neon-violet: #b400ff;
+            --neon-cyan: #00f0ff;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 2px solid var(--neon-violet);
+            box-shadow: 0 0 20px rgba(180, 0, 255, 0.3);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--neon-violet), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(180, 0, 255, 0.5);
+            letter-spacing: 3px;
+        }
+        
+        .cart {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cart:hover {
+            color: var(--neon-violet);
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px var(--neon-violet));
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            padding: 100px 5% 80px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(180, 0, 255, 0.1) 0%, rgba(0, 240, 255, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(180, 0, 255, 0.03) 2px, rgba(180, 0, 255, 0.03) 4px);
+            pointer-events: none;
+        }
+        
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--neon-violet), var(--neon-cyan), var(--neon-violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(180, 0, 255, 0.8)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 240, 255, 0.8)); }
+        }
+        
+        .hero h2 {
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .hero-description {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .location {
+            font-size: 1.1rem;
+            color: var(--neon-violet);
+            font-weight: 600;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: 80px 5%;
+            background: rgba(26, 26, 26, 0.5);
+            border-top: 1px solid rgba(180, 0, 255, 0.3);
+            border-bottom: 1px solid rgba(180, 0, 255, 0.3);
+        }
+        
+        .mission h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+        }
+        
+        .mission p {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            line-height: 2;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        /* Product Sections */
+        .product-section {
+            padding: 80px 5%;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--neon-violet), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-violet), var(--neon-cyan));
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-violet), var(--neon-cyan), var(--neon-violet));
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(180, 0, 255, 0.4);
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(75, 0, 130, 0.4));
+        }
+        
+        .product-card:hover .product-name {
+            color: #00f0ff;
+        }
+        
+        .product-card:hover .product-description {
+            color: #e0e0e0;
+        }
+        
+        .product-card:hover .product-price {
+            color: #00f0ff;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--neon-cyan);
+        }
+        
+        .product-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--neon-violet);
+            margin-bottom: 20px;
+        }
+        
+        .buy-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--neon-violet), var(--neon-cyan));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            text-align: center;
+            background: rgba(26, 26, 26, 0.8);
+            border-top: 2px solid var(--neon-violet);
+            margin-top: 80px;
+        }
+        
+        footer p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">GOKANIME STORE</div>
+        <div class="cart" onclick="comprar()">🛒</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Más que una Figura. Una Atmósfera.</h1>
+        <h2>Coleccionismo Épico. Relajación Zen.</h2>
+        <p class="hero-description">
+            Bienvenido al futuro del coleccionismo. En GOKANIME STORE no solo vendemos figuras, 
+            creamos experiencias sensoriales únicas que transforman tus personajes favoritos en piezas 
+            funcionales de arte. Cada producto está diseñado para fusionar tu pasión por el anime 
+            con el bienestar y la estética contemporánea.
+        </p>
+        <p class="location">Visítanos en: Neon District, Sector 404, Santa Ana.</p>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission">
+        <h2>Nuestra Misión</h2>
+        <p>
+            Queremos que dejes de solo <em>mirar</em> tu colección y empieces a <em>sentirla</em>. 
+            Fusionamos tus personajes favoritos con arte zen y aromaterapia. Nuestro objetivo es 
+            llevar las figuras de acción al siguiente nivel, integrándolas en tu día a día como 
+            piezas de decoración funcionales que relajan tu mente y personalizan tu espacio.
+        </p>
+    </section>
+
+    <!-- Quemadores de Incienso -->
+    <section class="product-section">
+        <h2 class="section-title">QUEMADORES DE INCIENSO: FLUIDO Y PODER</h2>
+        <div class="product-grid">
+            <!-- Himiko Toga -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/toga.png" alt="Himiko Toga" class="product-image" id="img-toga">
+                <h3 class="product-name">Himiko Toga</h3>
+                <p class="product-description">Figura de 18 cm en resina premium. Quemador de incienso de cascada con efecto niebla descendente. Incluye base iluminada LED rosa y 20 conos de incienso aromático. Sistema silencioso ideal para espacios pequeños.</p>
+                <div class="product-price">$220.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Izuku Midoriya -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/deku.png" alt="Izuku Midoriya" class="product-image" id="img-deku">
+                <h3 class="product-name">Izuku Midoriya</h3>
+                <p class="product-description">Figura compacta de 16 cm con acabado mate. Quemador de flujo inverso con efecto humo verde brillante. Viene con lámpara LED integrada y 15 conos. Perfecto para escritorios y mesitas de noche.</p>
+                <div class="product-price">$210.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Gogeta -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/gogeta.png" alt="Gogeta" class="product-image" id="img-gogeta">
+                <h3 class="product-name">Gogeta</h3>
+                <p class="product-description">Figura de 20 cm en resina de alta densidad. Quemador con doble cascada de humo azul y blanco. Sistema LED multicolor de 7 tonos, control táctil y temporizador. Incluye 25 conos premium de lavanda.</p>
+                <div class="product-price">$230.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Luffy Gear 5 -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/luffy.png" alt="Luffy Gear 5" class="product-image" id="img-luffy">
+                <h3 class="product-name">Luffy Gear 5</h3>
+                <p class="product-description">Figura de 19 cm pintada a mano. Quemador con efecto cascada triple y niebla densa. Iluminación LED blanca cálida con modo nocturno. Incluye 30 conos de sándalo y bandeja antideslizante.</p>
+                <div class="product-price">$230.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Chainsaw Man -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/chainsawman.png" alt="Chainsaw Man" class="product-image" id="img-chainsawman">
+                <h3 class="product-name">Chainsaw Man</h3>
+                <p class="product-description">Figura de 17 cm con detalles metálicos. Quemador con efecto humo rojo intenso y sonido ambiental suave. LED naranja pulsante que simula fuego. Incluye 20 conos de canela y manual bilingüe.</p>
+                <div class="product-price">$230.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Naruto -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/naruto.png" alt="Naruto" class="product-image" id="img-naruto">
+                <h3 class="product-name">Naruto</h3>
+                <p class="product-description">Figura premium de 20 cm con edición limitada. Quemador con cascada cuádruple y efecto remolino naranja. Sistema LED RGB programable vía app móvil. Incluye 40 conos mixtos, base giratoria y certificado de autenticidad.</p>
+                <div class="product-price">$250.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Sukuna -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/sukuna.png" alt="Sukuna" class="product-image" id="img-sukuna">
+                <h3 class="product-name">Sukuna</h3>
+                <p class="product-description">Figura básica de 15 cm en resina estándar. Quemador con efecto humo morado simple. Iluminación LED roja fija. Ideal para iniciarse en aromaterapia. Incluye 10 conos de vainilla y guía de uso.</p>
+                <div class="product-price">$200.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Dabi -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/dabi.png" alt="Dabi" class="product-image" id="img-dabi">
+                <h3 class="product-name">Dabi</h3>
+                <p class="product-description">Figura de 18 cm con acabado texturizado. Quemador con doble flujo de humo azul eléctrico. LED dual blanco/azul con efecto parpadeante. Incluye 25 conos de eucalipto, portaconos magnético y cable USB.</p>
+                <div class="product-price">$230.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fuentes de Agua -->
+    <section class="product-section">
+        <h2 class="section-title">FUENTES DE AGUA: CRISTAL Y ENERGÍA</h2>
+        <div class="product-grid">
+            <!-- Killua Zoldyck -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/killua.png" alt="Killua Zoldyck" class="product-image" id="img-killua">
+                <h3 class="product-name">Killua Zoldyck</h3>
+                <p class="product-description">Fuente decorativa de 18 cm con bomba ultra silenciosa. Esfera de cristal flotante con levitación magnética y efecto eléctrico azul. LED blanco frío de bajo consumo. Tanque de 500ml y sistema de reciclaje de agua.</p>
+                <div class="product-price">$380.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Tanjiro y Nezuko -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/tanjiro.png" alt="Tanjiro y Nezuko" class="product-image" id="img-tanjiro">
+                <h3 class="product-name">Tanjiro y Nezuko</h3>
+                <p class="product-description">Fuente premium de 20 cm con doble figura. Esfera flotante de cristal templado con luz rosa-verde degradada. Motor japonés premium de larga duración. Tanque XL de 700ml, sensor automático de nivel y adaptador incluido.</p>
+                <div class="product-price">$400.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Shigaraki -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/shigaraki.png" alt="Shigaraki" class="product-image" id="img-shigaraki">
+                <h3 class="product-name">Shigaraki</h3>
+                <p class="product-description">Fuente de 19 cm con acabado mate especial. Esfera flotante de cristal ahumado con iluminación azul intenso y efecto desintegración. Triple nivel de intensidad lumínica. Tanque de 650ml, bomba alemana certificada y control remoto.</p>
+                <div class="product-price">$410.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Levi Ackerman -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/levi.png" alt="Levi Ackerman" class="product-image" id="img-levi">
+                <h3 class="product-name">Levi Ackerman</h3>
+                <p class="product-description">Fuente elegante de 17 cm en resina de lujo. Esfera de cristal K9 premium con rotación automática y efecto espada. LED blanco brillante con 5 modos de parpadeo. Tanque antifugas de 600ml, garantía extendida y kit de limpieza.</p>
+                <div class="product-price">$410.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Katsuki Bakugo -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/bakugo.png" alt="Katsuki Bakugo" class="product-image" id="img-bakugo">
+                <h3 class="product-name">Katsuki Bakugo</h3>
+                <p class="product-description">Fuente de edición especial de 20 cm con pintura metalizada. Esfera flotante con efecto explosión naranja-dorada y partículas luminosas. Sistema LED RGB smart con sincronización de música. Tanque de 800ml, bomba silenciosa Pro y app exclusiva.</p>
+                <div class="product-price">$430.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Roronoa Zoro -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/zoro.png" alt="Roronoa Zoro" class="product-image" id="img-zoro">
+                <h3 class="product-name">Roronoa Zoro</h3>
+                <p class="product-description">Fuente artesanal de 19 cm con triple espada decorativa. Esfera flotante con efecto tornado verde y niebla artificial. LED verde esmeralda con temporizador programable. Tanque reforzado de 750ml, motor premium japonés y base antivibración.</p>
+                <div class="product-price">$420.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+
+            <!-- Eren Titán de Ataque -->
+            <div class="product-card">
+                <img src="GOKANIME STORE/GOKANIME STORE/eren.png" alt="Eren Titán de Ataque" class="product-image" id="img-eren">
+                <h3 class="product-name">Eren Titán de Ataque</h3>
+                <p class="product-description">Fuente compacta de 18 cm en resina reforzada. Esfera flotante con iluminación roja-marrón y efecto vapor. Motor de bajo ruido certificado. Tanque de 550ml con filtro antibacterial, cable alargado de 2m y manual detallado español/inglés.</p>
+                <div class="product-price">$380.000</div>
+                <button class="buy-button" onclick="comprar()">Comprar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 GOKANIME STORE - Neon District, Sector 404, Santa Ana.</p>
+        <p>Coleccionismo Épico. Relajación Zen.</p>
+    </footer>
+
+    <script>
+        // Función para comprar
+        function comprar() {
+            window.open('https://www.instagram.com/gokanime.store?igsh=MXV4N2ZoYzExZmlzOA==', '_blank');
+        }
+
+        // Array con todos los IDs de productos (15 productos confirmados)
+        const productos = [
+            'toga', 'deku', 'gogeta', 'luffy', 'chainsawman', 'naruto', 'sukuna', 'dabi',
+            'killua', 'tanjiro', 'shigaraki', 'levi', 'bakugo', 'zoro', 'eren'
+        ];
+
+        // Precargar imágenes hover para que el cambio sea instantáneo
+        productos.forEach(function(producto) {
+            const preloadImg = new Image();
+            preloadImg.src = 'GOKANIME STORE/GOKANIME STORE/' + producto + '_H.png';
+        });
+
+        // Configurar hover para cada producto con las imágenes correctas
+        productos.forEach(function(producto) {
+            const img = document.getElementById('img-' + producto);
+            if (img) {
+                const srcOriginal = 'GOKANIME STORE/GOKANIME STORE/' + producto + '.png';
+                const srcHover = 'GOKANIME STORE/GOKANIME STORE/' + producto + '_H.png';
+                
+                img.addEventListener('mouseenter', function() {
+                    this.src = srcHover;
+                });
+                
+                img.addEventListener('mouseleave', function() {
+                    this.src = srcOriginal;
+                });
+                
+                // Manejar errores de carga de imágenes
+                img.addEventListener('error', function() {
+                    console.error('Error cargando imagen: ' + this.src);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
